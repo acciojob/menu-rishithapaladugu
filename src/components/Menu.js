@@ -1,14 +1,19 @@
 import React from "react";
 
-const Menu = ({ items }) => {
+const Menu = ({ dishes }) => {
   return (
-    <div className="menu-container">
-      {items.map(({ id, name, category, price, image }) => (
-        <div key={id} className="menu-item">
-          <img src={image} alt={name} />
-          <h3>{name}</h3>
-          <p>{category}</p>
-          <p>{price}</p>
+    <div className="menu-list">
+      {dishes.map((dish) => (
+        <div
+          key={dish.id}
+          className="menu-item"
+          data-test-id={`menu-item-${dish.category}`}
+        >
+          <img src={dish.img} alt={dish.name} className="menu-img" />
+          <div className="menu-info">
+            <h3>{dish.name}</h3>
+            <p>{dish.price}</p>
+          </div>
         </div>
       ))}
     </div>
