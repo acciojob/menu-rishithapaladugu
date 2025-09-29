@@ -1,43 +1,85 @@
-import React, { useState } from 'react';
-import Menu from './Menu';
-import './styles.css';
-
-const menuItemsData = [
-  { id: 1, name: 'Pancakes', category: 'Breakfast', price: 8.99, image: 'pancakes.jpg' },
-  { id: 2, name: 'Burger', category: 'Lunch', price: 12.50, image: 'burger.jpg' },
-  { id: 3, name: 'Strawberry Shake', category: 'Shakes', price: 5.00, image: 'strawberry-shake.jpg' },
-  { id: 4, name: 'Eggs Benedict', category: 'Breakfast', price: 10.00, image: 'eggs-benedict.jpg' },
-  { id: 5, name: 'Salad', category: 'Lunch', price: 9.75, image: 'salad.jpg' },
-  { id: 6, name: 'Chocolate Shake', category: 'Shakes', price: 5.50, image: 'chocolate-shake.jpg' },
+import React, { useState } from "react";
+import Menu from "./Menu";
+import "../styles/App.css"; 
+ 
+const allDishes = [
+  {
+    id: 1,
+    name: "Pancakes",
+    category: "breakfast",
+    price: "$5.99",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 2,
+    name: "Omelette",
+    category: "breakfast",
+    price: "$4.50",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 3,
+    name: "Burger",
+    category: "lunch",
+    price: "$8.99",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 4,
+    name: "Grilled Sandwich",
+    category: "lunch",
+    price: "$6.50",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 5,
+    name: "Strawberry Shake",
+    category: "shakes",
+    price: "$3.99",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 6,
+    name: "Chocolate Shake",
+    category: "shakes",
+    price: "$4.25",
+    img: "https://via.placeholder.com/100",
+  },
 ];
 
-function App() {
-  const [menuItems, setMenuItems] = useState(menuItemsData);
-  const [activeCategory, setActiveCategory] = useState('All');
+const App = () => {
+  const [dishes, setDishes] = useState(allDishes);
+  const [category, setCategory] = useState("all");
 
-  const filterItems = (category) => {
-    setActiveCategory(category);
-    if (category === 'All') {
-      setMenuItems(menuItemsData);
+  const handleFilter = (cat) => {
+    setCategory(cat);
+    if (cat === "all") {
+      setDishes(allDishes);
     } else {
-      const filteredItems = menuItemsData.filter(item => item.category === category);
-      setMenuItems(filteredItems);
+      setDishes(allDishes.filter((dish) => dish.category === cat));
     }
   };
 
   return (
-    <div id="main" className="app-container">
-      <h1>Our Menu</h1>
-      <div className="filter-buttons">
-        <button id="filter-btn-1" onClick={() => filterItems('Breakfast')}>Breakfast</button>
-        <button id="filter-btn-2" onClick={() => filterItems('Lunch')}>Lunch</button>
-        <button id="filter-btn-3" onClick={() => filterItems('Shakes')}>Shakes</button>
-        <button onClick={() => filterItems('All')}>All</button>
+    <div id="main">
+      <h1 className="title">Menu</h1>
+      <div className="buttons">
+        <button id="filter-btn-1" onClick={() => handleFilter("breakfast")}>
+          Breakfast
+        </button>
+        <button id="filter-btn-2" onClick={() => handleFilter("lunch")}>
+          Lunch
+        </button>
+        <button id="filter-btn-3" onClick={() => handleFilter("shakes")}>
+          Shakes
+        </button>
+        <button id="filter-btn-all" onClick={() => handleFilter("all")}>
+          All
+        </button>
       </div>
-      <Menu items={menuItems} />
+      <Menu dishes={dishes} />
     </div>
   );
-}
+};
 
 export default App;
-
